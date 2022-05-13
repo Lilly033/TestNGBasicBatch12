@@ -1,4 +1,4 @@
-package class01;
+package class03;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -9,30 +9,30 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
-public class SoftAssertion {
+public class loginTest {
 
     WebDriver driver;
-//go to syntax login
-//    enter wrong crdentails
-//    verify the message is "invalid Credentials
-
     @BeforeMethod(alwaysRun = true)
     public void OpenBrowser(){
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
         driver.get("http://hrm.syntaxtechs.net/humanresources/symfony/web/index.php/auth/login");
     }
+
     @Test(groups = "regression")
-    public void VerifyCredentials() {
+    public void VerifyCredentials() throws InterruptedException {
 
         SoftAssert soft=new SoftAssert();
 
-        String expectedText = "Invalid credentials 101";
+        String expectedText = "Invalid credentials";
         WebElement Username = driver.findElement(By.id("txtUsername"));
         boolean displayed = Username.isDisplayed();
         Username.sendKeys("123456");
+        Thread.sleep(2000);
         driver.findElement(By.id("txtPassword")).sendKeys("123456");
+        Thread.sleep(2000);
         driver.findElement(By.id("btnLogin")).click();
+        Thread.sleep(2000);
         String text = driver.findElement(By.id("spanMessage")).getText();
 //assertion to make sure that the message is correct
         soft.assertEquals(text,expectedText);
@@ -47,16 +47,39 @@ public class SoftAssertion {
         soft.assertAll();
 
     }
-    @Test(groups = "smoke")
-    public void loginTest2(){
-        System.out.println("I am test for login under smoke");
-    }
 
+    @Test(groups = "regression")
+    public void VerifyCredentials2() throws InterruptedException {
+
+        SoftAssert soft=new SoftAssert();
+
+        String expectedText = "Invalid credentials";
+        Thread.sleep(2000);
+        WebElement Username = driver.findElement(By.id("txtUsername"));
+        boolean displayed = Username.isDisplayed();
+        Username.sendKeys("123456");
+        Thread.sleep(2000);
+        driver.findElement(By.id("txtPassword")).sendKeys("123456");
+        Thread.sleep(2000);
+        driver.findElement(By.id("btnLogin")).click();
+        Thread.sleep(2000);
+        String text = driver.findElement(By.id("spanMessage")).getText();
+//assertion to make sure that the message is correct
+        soft.assertEquals(text,expectedText);
+
+
+//        validate the diaplay is true or not
+        System.out.println("hello world");
+        soft.assertTrue(displayed);
+
+
+//        check all asseertions
+        soft.assertAll();
+
+    }
     @AfterMethod(alwaysRun = true)
     public  void  CloseBrowser(){
         driver.quit();
     }
 
-
 }
-

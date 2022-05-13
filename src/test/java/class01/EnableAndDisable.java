@@ -4,20 +4,21 @@ import org.testng.annotations.Test;
 
 public class EnableAndDisable {
 
-    public class Priority {
-        @Test(enabled = false)
-        public void FirstTest() {
-            System.out.println("1st");
-        }
+    @Test(enabled = false )
+    public void FirstTest(){
+        System.out.println("1st");
 
-        @Test
-        public void SecondTest() {
-            System.out.println("2nd");
-        }
-
-        @Test
-        public void ThirdTest() {
-            System.out.println("3rd");
-        }
     }
+    @Test
+    public void SecondTest(){
+
+        System.out.println("2nd");
+    }
+    @Test
+    public void ThirdTest(){
+
+        System.out.println("3rd");
+    }
+
+
 }
